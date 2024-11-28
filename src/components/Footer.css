@@ -1,0 +1,19 @@
+.footer {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace; /* Matches the logo font style */
+}
+
+.footer-contact {
+    font-size: 1rem;
+}

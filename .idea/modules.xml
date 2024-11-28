@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/gpthack.iml" filepath="$PROJECT_DIR$/.idea/gpthack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hackcamp.iml" filepath="$PROJECT_DIR$/.idea/hackcamp.iml" />
     </modules>
   </component>
 </project>
