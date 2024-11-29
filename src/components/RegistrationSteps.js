@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './RegistrationSteps.css'
 
 const RegistrationSteps = () => {
@@ -15,6 +15,12 @@ const RegistrationSteps = () => {
             setCurrentStep(currentStep - 1);
         }
     };
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     return (
         <div className="registration-container">

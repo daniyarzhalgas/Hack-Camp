@@ -1,13 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
 const Registration = () => {
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
 
-    const handleRegister = () => {
-        // Simulate registration logic here (e.g., form validation, API call)
-        navigate("/"); // Redirect to the home page
+    const handleRegister = async () => {
+        if (!email || !username || !password) {
+            setError('All fields are required.');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:8080/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, name: username, password }),
+            });
+
+            if (response.ok) {
+                navigate('/'); // Redirect to the home page
+            } else {
+                const { message } = await response.json();
+                setError(message || 'Registration failed.');
+            }
+        } catch (err) {
+            setError('An error occurred. Please try again later.');
+        }
     };
 
 
@@ -42,7 +67,8 @@ const Registration = () => {
                         width: "25px",
                         height: "25px"
                     }}/>
-                    <input type="text" id="email-input" placeholder="Email" style={{
+                    <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}
+                           id="email-input" placeholder="Email" style={{
                         paddingLeft: "15px",
                         width: '100%',
                         height: '100%',
@@ -70,7 +96,7 @@ const Registration = () => {
                         width: "25px",
                         height: "25px"
                     }}/>
-                    <input type="text" id="username-input" placeholder="Username" style={{
+                    <input type="text" id="username-input" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}   style={{
                         paddingLeft: "15px",
                         width: '100%',
                         height: '100%',
@@ -97,7 +123,8 @@ const Registration = () => {
                     <img src="/password_icon.png" alt="" style={{
                         paddingLeft: "10px"
                     }}/>
-                    <input type="password" id="password-input" placeholder="Password" style={{
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                           id="password-input" placeholder="Password" style={{
                         paddingLeft: "15px",
                         width: '100%',
                         height: '100%',
@@ -108,6 +135,7 @@ const Registration = () => {
                     />
                 </div>
             </div>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
             <div className="Frame32" style={{
                 height: 67,
                 left: 796,

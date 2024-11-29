@@ -9,6 +9,7 @@ import Calendar from './components/Calendar';
 import './App.css'
 import EventDetails from "./components/EventDetails";
 import LoginPage from "./components/LoginPage";
+import Profile from "./components/Profile";
 
 function App() {
 
@@ -21,15 +22,17 @@ function App() {
 
 function Main() {
     const location = useLocation(); // Get current route
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Track user auth state
 
     return (
         <>
-            {location.pathname !== "/login" && <Header/>}
+            {location.pathname !== "/login" && <Header isAuthenticated={isAuthenticated}/>}
 
 
             <main style={{flex: 1}}>
                 <Routes>
-                    <Route path="login" element={<LoginPage/>}/>
+                    <Route path="login" element={<LoginPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>}/>
+                    <Route path="/profile" element={<Profile />} /> {/* Profile page */}
                     <Route path="/events" element={<Events/>}/>
                     <Route path="/features" element={<Features/>}/>
                     <Route path="/faqs" element={<FAQs/>}/>

@@ -35,3 +35,54 @@
 .signin-btn:hover {
     background-color: #357ab8;
 }
+
+/* Dropdown styles */
+.dropdown {
+    position: absolute;
+    top: 50px; /* Adjust this to match your header height */
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    z-index: 10;
+    padding: 10px 0; /* Adds spacing inside the dropdown */
+    animation: fadeIn 0.2s ease-in-out; /* Optional: fade animation */
+}
+
+/* Animation for dropdown appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Dropdown menu items */
+.dropdown-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Divider between dropdown items (optional) */
+.dropdown-menu li + li {
+    border-top: 1px solid #e0e0e0;
+}
+

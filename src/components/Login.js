@@ -1,16 +1,29 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Login = ({switchToRegistration}) => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleRegister = () => {
-        navigate("/home"); // Redirect to the home page
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.post("http://localhost:8080/login", { email, password });
+            if (response.status === 200) {
+                navigate("/home"); // Redirect to home on successful login
+            }
+        } catch (err) {
+            setError("Invalid email or password");
+        }
     };
 
     return (
         <div>
-            <div className="Form2" style={{
+            <form className="Form2" style={{
                 width: 486,
                 height: 743,
                 paddingLeft: 64,
@@ -74,7 +87,9 @@ const Login = ({switchToRegistration}) => {
                             <img src="/email_icon.png" alt="" style={{
                                 paddingLeft: "10px"
                             }}/>
-                            <input type="text" placeholder="Email" style={{
+
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="text"
+                                   placeholder="Email" style={{
                                 paddingLeft: "15px",
                                 width: '100%',
                                 height: '100%',
@@ -104,7 +119,8 @@ const Login = ({switchToRegistration}) => {
                             <img src="/password_icon.png" alt="" style={{
                                 paddingLeft: "10px"
                             }}/>
-                            <input type="password" placeholder="Password" style={{
+                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password"
+                                   placeholder="Password" style={{
                                 paddingLeft: "15px",
                                 width: '100%',
                                 height: '100%',
@@ -164,7 +180,7 @@ const Login = ({switchToRegistration}) => {
                                         alignItems: 'flex-start',
                                         display: 'inline-flex'
                                     }}>
-                                        <button className="Button" onClick={handleRegister} style={{
+                                        <button className="Button" onClick={e=> handleLogin(e)} style={{
                                             alignSelf: 'stretch',
                                             paddingLeft: 96,
                                             paddingRight: 96,
@@ -198,6 +214,7 @@ const Login = ({switchToRegistration}) => {
                                                 </div>
                                             </div>
                                         </button>
+                                        {error && <p style={{ color: "red" }}>{error}</p>}
                                     </div>
                                 </div>
                                 <div className="Frame41" style={{
@@ -375,7 +392,7 @@ const Login = ({switchToRegistration}) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }

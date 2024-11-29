@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import Login from "./Login";
 import Registration from "./Registration";
+import {useNavigate} from "react-router-dom";
 
 
-const LoginPage = () => {
+const LoginPage = ({isAuthenticated, setIsAuthenticated}) => {
     const [isLogin, setIsLogin] = useState(true);
 
     const handleSwitchToRegistration = () => {
@@ -36,7 +37,7 @@ const LoginPage = () => {
                 backdropFilter: 'blur(24px)'
             }}>
                 {isLogin ? (
-                    <Login switchToRegistration={handleSwitchToRegistration} />
+                    <Login switchToRegistration={handleSwitchToRegistration} onLogin={() => setIsAuthenticated(true)} />
                 ) : (
                     <Registration />
                 )}
@@ -118,7 +119,7 @@ const LoginPage = () => {
                     fontFamily: 'Monocraft',
                     fontWeight: '500',
                     wordWrap: 'break-word'
-                }}>hcc
+                }}><img src="/hcc_logo_white.png" alt=""/>
                 </div>
             </div>
             <img className="Torus" style={{
