@@ -1,0 +1,104 @@
+import React, { useState } from "react";
+import './AdminPage.css'
+const AdminPage = () => {
+    const [event, setEvent] = useState({
+        title: "",
+        location: "",
+        duration: "",
+        description: "",
+        theme: "",
+        prizes: "",
+        registrationDeadline: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEvent((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = (e) => {
+        // e.preventDefault();
+        console.log("Event details submitted:", event);
+        // Add logic to save event details to the database or backend API
+        alert("Event created successfully!");
+    };
+
+    return (
+        <div className="admin-page">
+            <h2>Create New Event</h2>
+            <form onSubmit={handleSubmit} className="admin-form">
+                <label>
+                    Title:
+                    <input
+                        type="text"
+                        name="title"
+                        value={event.title}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Location:
+                    <input
+                        type="text"
+                        name="location"
+                        value={event.location}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Duration:
+                    <input
+                        type="text"
+                        name="duration"
+                        value={event.duration}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Description:
+                    <textarea
+                        name="description"
+                        value={event.description}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Hackathon Theme:
+                    <input
+                        type="text"
+                        name="theme"
+                        value={event.theme}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Prizes:
+                    <input
+                        type="text"
+                        name="prizes"
+                        value={event.prizes}
+                        onChange={handleChange}
+                    />
+                </label>
+                <label>
+                    Registration Deadline:
+                    <input
+                        type="date"
+                        name="registrationDeadline"
+                        value={event.registrationDeadline}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <button type="submit">Create Event</button>
+            </form>
+        </div>
+    );
+};
+
+export default AdminPage;

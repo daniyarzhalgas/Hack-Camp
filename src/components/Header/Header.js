@@ -17,6 +17,10 @@ function Header({isAuthenticated}) {
         navigate("/profile"); // Navigate to the Profile page
     };
 
+    const goToResults = () => {
+        navigate("/results"); // Navigate to the Profile page
+    };
+
 
     return (
         <header className="header">
@@ -46,8 +50,8 @@ function Header({isAuthenticated}) {
                             {/* Default Input Field */}
                             <ul className="dropdown-menu">
                                 <li onClick={goToProfile}>Profile</li>
-                                <li>Home</li>
-                                <li>My Results</li>
+                                <li >Home</li>
+                                <li onClick={goToResults}>My Results</li>
                                 <li>Settings</li>
                                 <li>Contacts</li>
                                 <li>Log Out</li>

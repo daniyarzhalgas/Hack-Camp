@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import RegistrationSteps from "./RegistrationSteps";
+import RegistrationSteps from "../RegistrationToEvent/RegistrationSteps";
 
 const EventPage = ({event, eventDetails, id}) => {
     const [view, setView] = useState("info"); // State to track the current view

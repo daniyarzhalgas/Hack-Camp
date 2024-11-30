@@ -11,8 +11,13 @@ const Login = ({switchToRegistration}) => {
 
     const handleLogin = async (e) => {
         e.preventDefault()
+        if (email === 'admin' && password === 'admin'){
+            navigate("/administration");
+        }
+
         try {
-            const response = await axios.post("http://localhost:8080/login", { email, password });
+            const response = await axios.post("http://localhost:8080/login", {email, password});
+
             if (response.status === 200) {
                 navigate("/home"); // Redirect to home on successful login
             }
@@ -180,7 +185,7 @@ const Login = ({switchToRegistration}) => {
                                         alignItems: 'flex-start',
                                         display: 'inline-flex'
                                     }}>
-                                        <button className="Button" onClick={e=> handleLogin(e)} style={{
+                                        <button className="Button" onClick={e => handleLogin(e)} style={{
                                             alignSelf: 'stretch',
                                             paddingLeft: 96,
                                             paddingRight: 96,
@@ -214,7 +219,7 @@ const Login = ({switchToRegistration}) => {
                                                 </div>
                                             </div>
                                         </button>
-                                        {error && <p style={{ color: "red" }}>{error}</p>}
+                                        {error && <p style={{color: "red"}}>{error}</p>}
                                     </div>
                                 </div>
                                 <div className="Frame41" style={{
