@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 function EventCard({id, title, location, description, image}) {
     const navigate = useNavigate(); // Hook for programmatic navigation
-
+    console.log(id, title, location, description, image)
     const handleLearnMore = () => {
         console.log(id);
         navigate(`/event/${id}`); // Navigate to the event details page

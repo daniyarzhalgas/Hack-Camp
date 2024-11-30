@@ -1,10 +1,11 @@
 // src/components/Events.js
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import EventCard from './EventCard';
 import './Events.css';
 
 function Events() {
-    const hackathons = [
+    const mockHackathons = [
         {
             id :1,
             title: 'TechStep Almaty',
@@ -50,6 +51,37 @@ function Events() {
         // Add more hackathons as needed
     ];
 
+
+    const [hackathons, setHackathons] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchHackathons = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/hackathons');
+                setHackathons(response.data); // Assuming the backend returns an array of hackathons
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to fetch hackathons. Please try again later.');
+                setLoading(false);
+            }
+        };
+
+        fetchHackathons();
+    }, []);
+
+    if (loading) {
+        return <div className="events"><p>Loading hackathons...</p></div>;
+    }
+
+    if (error) {
+        return <div className="events"><p>{error}</p></div>;
+    }
+
+
+
+
     return (
         <div className="events">
             <div className="events-header">
@@ -63,8 +95,16 @@ function Events() {
                     <button>Finished</button>
                 </div>
                 <div className="event-grid">
-                    {hackathons.map((hackathon, index) => (
+                    {mockHackathons.map((hackathon, index) => (
                         <EventCard key={index} {...hackathon} />
+                    ))}
+                    {hackathons.map((hackathon) => (
+
+                        <EventCard
+                            id={Math.random()}
+                            {...hackathon}
+                            image={hackathon.image || '/image4.png'} // Укажите путь к дефолтному изображению
+                        />
                     ))}
                 </div>
             </div>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import './AdminPage.css'
+
 const AdminPage = () => {
     const [event, setEvent] = useState({
         title: "",
@@ -16,11 +18,24 @@ const AdminPage = () => {
         setEvent((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        console.log("Event details submitted:", event);
-        // Add logic to save event details to the database or backend API
-        alert("Event created successfully!");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:8080/hackathon/create", event);
+            alert(response.data); // Backend response message
+            setEvent({
+                title: "",
+                location: "",
+                duration: "",
+                description: "",
+                theme: "",
+                prizes: "",
+                registrationDeadline: "",
+            });
+        } catch (error) {
+            console.error("Error creating event:", error);
+            alert("Failed to create event.");
+        }
     };
 
     return (
