@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import './AdminPage.css'
 
 const AdminPage = () => {
     const [event, setEvent] = useState({
-        image: null,
         title: "",
         location: "",
         duration: "",
@@ -13,16 +12,10 @@ const AdminPage = () => {
         prizes: "",
         registrationDeadline: "",
     });
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setEvent((prev) => ({ ...prev, image: file })); // Store file in state
-        }
-    };
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setEvent((prev) => ({...prev, [name]: value}));
+        const { name, value } = e.target;
+        setEvent((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e) => {
@@ -31,7 +24,6 @@ const AdminPage = () => {
             const response = await axios.post("http://localhost:8080/hackathon/create", event);
             alert(response.data); // Backend response message
             setEvent({
-                image: null,
                 title: "",
                 location: "",
                 duration: "",
@@ -81,12 +73,6 @@ const AdminPage = () => {
                     />
                 </label>
                 <label>
-                    Image for hackathon poster:
-                    <input type="file" id="eventImage" name="image"
-                           onChange={handleImageChange}
-                           required/>
-                </label>
-                <label>
                     Description:
                     <textarea
                         name="description"
@@ -115,7 +101,7 @@ const AdminPage = () => {
                     />
                 </label>
                 <label>
-                    Registration Deadline:
+                    Time:
                     <input
                         type="date"
                         name="registrationDeadline"

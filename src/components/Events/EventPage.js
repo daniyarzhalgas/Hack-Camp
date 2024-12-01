@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import RegistrationSteps from "../RegistrationToEvent/RegistrationSteps";
 
-const EventPage = ({event, eventDetails, id}) => {
+const EventPage = ({event, id}) => {
     const [view, setView] = useState("info"); // State to track the current view
 
     const handleRegisterClick = () => {
@@ -42,23 +42,20 @@ const EventPage = ({event, eventDetails, id}) => {
             {view === "info" && (
                 <div className="info-section">
                     <div className="event-info">
-                        <p><strong>Location:</strong> {eventDetails[id - 1].location}</p>
+                        <p><strong>Location:</strong> {event.location}</p>
                         <p><strong>Duration:</strong> {event.duration}</p>
+                        <p><strong>Description:</strong></p>
                         <p>{event.description}</p>
-                        <ul>
-                            {event.areas.map((area, index) => (
-                                <li key={index}>{area}</li>
-                            ))}
-                        </ul>
+
                     </div>
 
                     {/* What Awaits You Section */}
                     <div className="event-section">
                         <h2>What awaits you:</h2>
                         <ul>
-                            {event.whatAwaits.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
+                            <li>2 days of intensive work in teams.</li>
+                            <li>Mentoring support and access to modern tools.</li>
+                            <li>Final presentations and feedback from experts.</li>
                         </ul>
                     </div>
 
@@ -66,7 +63,7 @@ const EventPage = ({event, eventDetails, id}) => {
                     <div className="event-section">
                         <h2>Prizes:</h2>
                         <ul>
-                            {event.prizes.map((prize, index) => (
+                            {event.prizes.split(',').map((prize, index) => (
                                 <li key={index}>{prize}</li>
                             ))}
                         </ul>
@@ -75,7 +72,11 @@ const EventPage = ({event, eventDetails, id}) => {
                     {/* Registration Section */}
                     <div className="event-section">
                         <h2>Registration:</h2>
-                        <p>{event.registration}</p>
+                        <p>Follow the link.
+                            Fill out the form by {event.date}.</p>
+                        <p>Participate both individually and in a team (up to 5 people).</p>
+                        <p>Places are limited — register now and become a part of {event.title}!</p>
+                        <p>For questions: info@hackcamp.kz </p>
                     </div>
 
                     {/* Register Button */}

@@ -12,87 +12,89 @@ function EventDetails() {
             id: 1,
             title: 'TechStep Almaty',
             location: 'Almaty, Kazakhstan',
-            description: 'A hackathon dedicated to the creation of innovative solutions in the field of Smart City and smart technologies for the cities of Kazakhstan.',
             image: '/image1.png',
+            duration: '2 days (weekend)',
+            description: 'TechStep Almaty is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
+            prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
+            date: '01.11.2024'
         },
         {
             id: 2,
             title: 'Astana AI & ML Hack',
             location: 'Astana, Kazakhstan',
-            description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image3.png',
+            duration: '2 days (weekend)',
+            description: 'Astana AI & ML Hack is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
+            prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
+            date: '01.11.2024'
         },
         {
             id: 3,
             title: 'KazHack',
             location: 'Astana, Kazakhstan',
-            description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image2.png',
+            duration: '2 days (weekend)',
+            description: 'KazHack is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
+            prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
+            date: '01.11.2024'
         },
         {
             id: 4,
             title: 'EcoTechHack',
             location: 'Astana, Kazakhstan',
-            description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image4.png',
+            duration: '2 days (weekend)',
+            description: 'EcoTechHack is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
+            prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
+            date: '01.11.2024'
         },
         {
             id: 5,
             title: 'FinTech Almaty',
             location: 'Astana, Kazakhstan',
-            description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image5.png',
+            duration: '2 days (weekend)',
+            description: 'FinTech Almaty is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
+            prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
+            date: '01.11.2024'
         },
         {
             id: 6,
             title: 'Hack4Good Shymkent',
             location: 'Astana, Kazakhstan',
-            description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image6.png',
+            duration: '2 days (weekend)',
+            description: 'Hack4Good Shymkent is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
+            prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
+            date: '01.11.2024'
         },
         // Add more hackathons as needed
     ];
-    const event = {
-        title: 'TechStep Almaty',
-        location: 'Almaty, KazGUU University',
-        duration: '2 days (weekend)',
-        description: `
-      TechStep Almaty is a hackathon that unites students and professionals to solve real problems through technology.
-      The participants will work on projects in the following areas:
-    `,
-        areas: [
-            'Mobile apps: Tools for productivity, entertainment, or community.',
-            'Web solutions: Platforms for e-commerce, data visualization or service management.',
-            'Automation: Optimization of work processes.',
-            'Open innovation: Any significant technological ideas.',
-        ],
-        whatAwaits: [
-            '2 days of intensive work in teams.',
-            'Mentoring support and access to modern tools.',
-            'Final presentations and feedback from experts.',
-        ],
-        prizes: [
-            '1st place: $3000 + mentoring support.',
-            '2nd place: $1500 + educational resources.',
-            '3rd place: $1000 + gifts from partners.',
-        ],
-        registration: `
-      Follow the link.
-      Fill out the form by November 7, 2024.
-      Participate both individually and in a team (up to 5 people).
-      Places are limited — register now and become a part of TechStep Almaty!
-      For questions: info@techstep.kz
-    `,
-    };
+    let event;
+    if (id < 6) {
+        event = eventDetails[id - 1]
+
+    } else {
+        event ={
+            id: id,
+            // title:
+            // location:
+            image: '/def-hack-image.webp',
+            // duration:
+            // description:
+            // prizes:
+            // date:
+        }
+    }
 
 
-    // const event = eventyDetails[id-1]; // Retrieve event details using the ID
+// const event = eventyDetails[id-1]; // Retrieve event details using the ID
 
     if (!event) {
         return <g1>Event not found!</g1>;
     }
     const sectionStyle = {
-        backgroundImage: `url(${eventDetails[id - 1].image})`, // Set the background image
+        backgroundImage: `url(${event.image})`, // Set the background image
         backgroundSize: 'cover',              // Cover the entire div
         backgroundPosition: 'center',         // Center the image
         height: '300px',                      // Adjust height as needed
@@ -102,7 +104,7 @@ function EventDetails() {
         color: 'white',                       // Text color for contrast
         textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Add shadow for readability
     };
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+// eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -111,7 +113,7 @@ function EventDetails() {
     return (
         <div>
             <div className="event-header" style={sectionStyle}>
-                <h1>{eventDetails[id - 1].title}</h1>
+                <h1>{event.title}</h1>
             </div>
             <div className="event-details">
                 <div className="detetails_nav">
@@ -119,7 +121,7 @@ function EventDetails() {
                     <div id="rega-btn"><h1>Registration</h1></div>
                 </div>
 
-                <EventPage id={id} eventDetails={eventDetails} event={event}/>
+                <EventPage id={id} event={event}/>
                 {/* Event Info */}
             </div>
         </div>
