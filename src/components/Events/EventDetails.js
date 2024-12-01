@@ -89,7 +89,7 @@ function EventDetails() {
     // const event = eventyDetails[id-1]; // Retrieve event details using the ID
 
     if (!event) {
-        return <p>Event not found!</p>;
+        return <g1>Event not found!</g1>;
     }
     const sectionStyle = {
         backgroundImage: `url(${eventDetails[id - 1].image})`, // Set the background image

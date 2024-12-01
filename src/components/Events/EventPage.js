@@ -15,7 +15,6 @@ const EventPage = ({event, eventDetails, id}) => {
         document.getElementById("info-btn").style.background = "#D7E0FB";
 
 
-
         setView("register"); // Switch to the "Register" view
     };
 

@@ -7,42 +7,42 @@ import './Events.css';
 function Events() {
     const mockHackathons = [
         {
-            id :1,
+            id: 1,
             title: 'TechStep Almaty',
             location: 'Almaty, Kazakhstan',
             description: 'A hackathon dedicated to the creation of innovative solutions in the field of Smart City and smart technologies for the cities of Kazakhstan.',
             image: '/image1.png',
         },
         {
-            id :2,
+            id: 2,
             title: 'Astana AI & ML Hack',
             location: 'Astana, Kazakhstan',
             description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image3.png',
         },
         {
-            id :3,
+            id: 3,
             title: 'KazHack',
             location: 'Astana, Kazakhstan',
             description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image2.png',
         },
         {
-            id :4,
+            id: 4,
             title: 'EcoTechHack',
             location: 'Astana, Kazakhstan',
             description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image4.png',
         },
         {
-            id :5,
+            id: 5,
             title: 'FinTech Almaty',
             location: 'Astana, Kazakhstan',
             description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
             image: '/image5.png',
         },
         {
-            id :6,
+            id: 6,
             title: 'Hack4Good Shymkent',
             location: 'Astana, Kazakhstan',
             description: 'A general hackathon for developers, designers, and product managers to create innovative digital solutions across various categories, including apps, web services, and automation.',
@@ -78,9 +78,7 @@ function Events() {
     if (error) {
         return <div className="events"><p>{error}</p></div>;
     }
-
-
-
+    let i = mockHackathons.length;
 
     return (
         <div className="events">
@@ -98,10 +96,10 @@ function Events() {
                     {mockHackathons.map((hackathon, index) => (
                         <EventCard key={index} {...hackathon} />
                     ))}
-                    {hackathons.map((hackathon) => (
 
+                    {hackathons.map((hackathon) => ( // hackathons from back
                         <EventCard
-                            id={Math.random()}
+                            id={i++}
                             {...hackathon}
                             image={hackathon.image || '/image4.png'} // Укажите путь к дефолтному изображению
                         />
