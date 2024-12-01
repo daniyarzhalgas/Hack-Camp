@@ -22,7 +22,7 @@ const AdminPage = () => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:8080/hackathon/create", event);
-            alert(response.data); // Backend response message
+            alert(response.data); // Показываем ответ от сервера
             setEvent({
                 title: "",
                 location: "",
@@ -37,6 +37,7 @@ const AdminPage = () => {
             alert("Failed to create event.");
         }
     };
+
 
     return (
         <div className="admin-page">

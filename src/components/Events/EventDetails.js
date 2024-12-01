@@ -1,10 +1,44 @@
-import React, {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import "./EventDetails.css"
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import "./EventDetails.css";
 import EventPage from "./EventPage";
 
 function EventDetails() {
-    const {id} = useParams(); // Extract the event ID from the URL
+    const { id } = useParams(); // Получаем ID хакатона из URL
+    const [event, setEvent] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+
+
+    useEffect(() => {
+        // Функция для получения данных
+        const fetchEvent = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/hackathon/${id}`);
+                setEvent(response.data); // Устанавливаем данные хакатона
+            } catch (err) {
+                console.error("Failed to fetch event:", err);
+                setError("Failed to fetch event details.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvent(); // Вызываем функцию при загрузке компонента
+        window.scrollTo(0, 0); // Скроллим страницу наверх
+    }, [id]);
+
+
+
+
+
+    // Отображение лоадера, ошибки или данных
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+    if (!event) return <p>Event not found!</p>;
+
 
     // Mock data - replace this with data fetched from a server or state
     const eventDetails = [
@@ -70,44 +104,32 @@ function EventDetails() {
         },
         // Add more hackathons as needed
     ];
-    let event;
+
+
     if (id < 6) {
-        event = eventDetails[id - 1]
+        setEvent(eventDetails[id - 1])
 
     } else {
-        event ={
-            id: id,
-            // title:
-            // location:
-            image: '/def-hack-image.webp',
-            // duration:
-            // description:
-            // prizes:
-            // date:
-        }
+
     }
-
-
 // const event = eventyDetails[id-1]; // Retrieve event details using the ID
 
     if (!event) {
         return <g1>Event not found!</g1>;
     }
     const sectionStyle = {
-        backgroundImage: `url(${event.image})`, // Set the background image
-        backgroundSize: 'cover',              // Cover the entire div
-        backgroundPosition: 'center',         // Center the image
-        height: '300px',                      // Adjust height as needed
+        backgroundImage: `url(${event.image || '/image4.png'})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '300px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'white',                       // Text color for contrast
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Add shadow for readability
+        color: 'white',
+        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
     };
 // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+
 
 
     return (
