@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Header.css';
+import {useUser} from "../../contexts/UserContext";
 
 function Header({isAuthenticated}) {
     const navigate = useNavigate();
+    const { setUser } = useUser();
 
     const handleSignInUpClick = () => {
         navigate("/login");
@@ -20,6 +22,10 @@ function Header({isAuthenticated}) {
     const goToResults = () => {
         navigate("/results"); // Navigate to the Profile page
     };
+    const logOutHandle = () => {
+        navigate("/")
+        setUser(null)
+    }
 
 
     return (
@@ -54,7 +60,7 @@ function Header({isAuthenticated}) {
                                 <li onClick={goToResults}>My Results</li>
                                 <li>Settings</li>
                                 <li>Contacts</li>
-                                <li>Log Out</li>
+                                <li onClick={logOutHandle}>Log Out</li>
                             </ul>
                         </div>
                     )}

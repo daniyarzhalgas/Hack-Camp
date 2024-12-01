@@ -1,19 +1,50 @@
 import React, {useEffect, useState} from "react";
 import './RegistrationSteps.css'
+import {useNavigate} from "react-router-dom";
 
-const RegistrationSteps = () => {
+const RegistrationSteps = ({event}) => {
+    const navigate = useNavigate();
+
+
     const [currentStep, setCurrentStep] = useState(1);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        age: '',
+        gender: '',
+        organisationName: '',
+        participation: '',
+        teamName: '',
+        teamLeader: '',
+        memberCount: '',
+        memberNames: ''
+    });
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
     const handleNext = () => {
+        console.log('Form Data:', formData);
         if (currentStep < 3) {
             setCurrentStep(currentStep + 1);
         }
     };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("submit")
+        console.log('Form Data:', formData);
 
-    const handlePrevious = () => {
-        if (currentStep > 1) {
-            setCurrentStep(currentStep - 1);
-        }
+        alert(`successfully registered ${event.title} ${formData.firstName} ${formData.lastName}`)
+        window.location.reload();
+        // todo
+        // Perform actions like sending data to a server
     };
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -43,103 +74,188 @@ const RegistrationSteps = () => {
             {/* Step Content */}
             <div className="step-content">
                 {currentStep === 1 && (
-                    <form>
+                    <form id="form1">
                         <div className="name-surname-input">
                             <div className="col">
                                 <label htmlFor="name-inp">First name:</label>
-                                <input type="text"/>
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    value={formData.firstName}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
 
                             <div className="col">
                                 <label htmlFor="lastname-inp">Last name:</label>
-                                <input type="text"/>
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="email-country-input">
                             <div className="email-input">
                                 <div className="col">
                                     <label htmlFor="email-inp">Email:</label>
-                                    <input type="text"/>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                 </div>
                             </div>
                             <div className="country-input">
                                 <div className="col">
                                     <label htmlFor="country-inp">Country:</label>
-                                    <input type="text"/>
+                                    <input
+                                        type="text"
+                                        name="country"
+                                        value={formData.country}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                 </div>
                             </div>
+                        </div>
+                        <div className="navigation-buttons" style={{
+                            display: "flex",
+                            justifyContent: "center"
+                        }}>
+                            <button type="submit" form="form1" onClick={handleNext} value="Submit">Save</button>
                         </div>
                     </form>
                 )}
                 {currentStep === 2 && (
-                    <form>
+                    <form id="form2">
                         <div className="name-surname-input">
                             <div className="col">
                                 <label htmlFor="name-inp">Age:</label>
-                                <input type="number"/>
+                                <input
+                                    type="number"
+                                    name="age"
+                                    value={formData.age}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
 
                             <div className="col">
                                 <label htmlFor="lastname-inp">Gender:</label>
-                                <input type="text"/>
+                                <input
+                                    type="text"
+                                    name="gender"
+                                    value={formData.gender}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="email-country-input">
                             <div className="email-input">
                                 <div className="col">
                                     <label htmlFor="email-inp">Your organisation name:</label>
-                                    <input type="text"/>
+                                    <input
+                                        type="text"
+                                        name="organisationName"
+                                        value={formData.organisationName}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                 </div>
                             </div>
                             <div className="country-input">
                                 <div className="col">
                                     <label htmlFor="country-inp">How are you planning to participate?:</label>
-                                    <input type="text" placeholder="I am joining the team of my Team Leader"/>
+                                    <input
+                                        type="text"
+                                        name="participation"
+                                        value={formData.participation}
+                                        onChange={handleChange}
+                                        placeholder="I am joining the team of my Team Leader"
+                                    />
                                 </div>
                             </div>
                         </div>
+                        <div className="navigation-buttons" style={{
+                            display: "flex",
+                            justifyContent: "center"
+                        }}>
+                            <button type="submit" form="form2" onClick={handleNext} value="Submit">Register now!
+                            </button>
+                        </div>
+
                     </form>
                 )}
                 {currentStep === 3 && (
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="name-surname-input">
                             <div className="col">
                                 <label htmlFor="name-inp">Team name:</label>
-                                <input type="text"/>
+                                <input
+                                    type="text"
+                                    name="teamName"
+                                    value={formData.teamName}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
 
                             <div className="col">
                                 <label htmlFor="lastname-inp">Team leader:</label>
-                                <input type="text"/>
+                                <input
+                                    type="text"
+                                    name="teamLeader"
+                                    value={formData.teamLeader}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="email-country-input">
                             <div className="email-input">
-                                <div className="col">
+                            <div className="col">
                                     <label htmlFor="email-inp">Count of members:</label>
-                                    <input type="text"/>
-                                </div>
+                                <input
+                                    type="number"
+                                    name="memberCount"
+                                    value={formData.memberCount}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
                             </div>
                             <div className="country-input">
                                 <div className="col">
-                                    <label htmlFor="country-inp">Name of members:</label>
-                                    <input type="text"/>
+                                <label htmlFor="country-inp">Name of members:</label>
+                                    <textarea
+                                        name="memberNames"
+                                        value={formData.memberNames}
+                                        onChange={handleChange}
+                                        required
+                                    ></textarea>
                                 </div>
                             </div>
                         </div>
+                        <div className="navigation-buttons" style={{
+                            display: "flex",
+                            justifyContent: "center"
+                        }}>
+                            <button type="submit" form="form3" onClick={handleSubmit} value="Submit">Register now!
+                            </button>
+                        </div>
+
                     </form>
                 )}
             </div>
 
-            {/* Navigation Buttons */}
-            <div className="navigation-buttons">
-                <button onClick={handlePrevious} disabled={currentStep === 1}>
-                    Previous
-                </button>
-                <button onClick={handleNext} disabled={currentStep === 3}>
-                    Next
-                </button>
-            </div>
+
         </div>
     );
 };

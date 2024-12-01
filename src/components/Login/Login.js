@@ -1,13 +1,14 @@
 import React, {Component, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {useUser} from "../../contexts/UserContext";
 
 const Login = ({switchToRegistration}) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
+    const { setUser } = useUser();
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -19,6 +20,10 @@ const Login = ({switchToRegistration}) => {
             const response = await axios.post("http://localhost:8080/login", {email, password});
 
             if (response.status === 200) {
+                const mockUserData = { id: 1, email, firstName: "John", lastName: 'Doe', token: "12345" };
+
+                // Save user data to context
+                setUser(mockUserData);
                 navigate("/home"); // Redirect to home on successful login
             }
         } catch (err) {

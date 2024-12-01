@@ -101,7 +101,7 @@ function Events() {
                         <EventCard
                             id={i++}
                             {...hackathon}
-                            image={hackathon.image || '/image4.png'} // Укажите путь к дефолтному изображению
+                            image={hackathon.image || '/def-hack-image.webp'} // Укажите путь к дефолтному изображению
                         />
                     ))}
                 </div>

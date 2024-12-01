@@ -12,6 +12,7 @@ import LoginPage from "./components/Login/LoginPage";
 import Profile from "./components/UserInfo/Profile";
 import Results from "./components/UserInfo/Results";
 import AdminPage from "./components/Admin/AdminPage";
+import {useUser} from "./contexts/UserContext";
 
 function App() {
 
@@ -25,18 +26,17 @@ function App() {
 
 function Main() {
     const location = useLocation(); // Get current route
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // Track user auth state
+    const { user } = useUser();
 
     return (
         <>
             {location.pathname !== "/login" && location.pathname !== "/administration" && (
-                <Header isAuthenticated={isAuthenticated} />
+                <Header isAuthenticated={user} />
             )}
-
 
             <main style={{flex: 1}}>
                 <Routes>
-                    <Route path="login" element={<LoginPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>}/>
+                    <Route path="login" element={<LoginPage isAuthenticated={user} />}/>
                     <Route path="/profile" element={<Profile />} /> {/* Profile page */}
                     <Route path="/results" element={<Results />} /> {/* Result page */}
                     <Route path="/administration" element={<AdminPage />} /> {/* Admin page */}

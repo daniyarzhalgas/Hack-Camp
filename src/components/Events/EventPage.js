@@ -88,7 +88,7 @@ const EventPage = ({event, id}) => {
 
             {view === "register" && (
                 <div className="register-section">
-                    <RegistrationSteps/>
+                    <RegistrationSteps event={event}/>
                 </div>
             )}
         </div>

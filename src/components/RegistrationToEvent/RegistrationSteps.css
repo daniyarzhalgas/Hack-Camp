@@ -40,11 +40,16 @@
 }
 
 .navigation-buttons button {
+    min-width: 120px;
+    height: 65px;
+    flex-shrink: 0;
     padding: 10px 20px;
     border: none;
-    background-color: blue;
+    border-radius: 15px;
+    background: #5179EF;
     color: white;
     cursor: pointer;
+    font-size: 17px;
 }
 
 button:disabled {

@@ -1,43 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import "./EventDetails.css";
 import EventPage from "./EventPage";
 
 function EventDetails() {
-    const { id } = useParams(); // Получаем ID хакатона из URL
+    const {id} = useParams(); // Получаем ID хакатона из URL
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-
-
-    useEffect(() => {
-        // Функция для получения данных
-        const fetchEvent = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/hackathon/${id}`);
-                setEvent(response.data); // Устанавливаем данные хакатона
-            } catch (err) {
-                console.error("Failed to fetch event:", err);
-                setError("Failed to fetch event details.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchEvent(); // Вызываем функцию при загрузке компонента
-        window.scrollTo(0, 0); // Скроллим страницу наверх
-    }, [id]);
-
-
-
-
-
-    // Отображение лоадера, ошибки или данных
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
-    if (!event) return <p>Event not found!</p>;
 
 
     // Mock data - replace this with data fetched from a server or state
@@ -107,18 +78,45 @@ function EventDetails() {
 
 
     if (id < 6) {
-        setEvent(eventDetails[id - 1])
-
+        // setEvent(eventDetails[id - 1])
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+            if (id && eventDetails) {
+                setEvent(eventDetails[id - 1]);
+            }
+        }, [id, eventDetails]); // Dependencies to re-run effect if these change
     } else {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+            // Функция для получения данных
+            const fetchEvent = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:8080/hackathon/${id}`);
+                    setEvent(response.data); // Устанавливаем данные хакатона
+                } catch (err) {
+                    console.error("Failed to fetch event:", err);
+                    setError("Failed to fetch event details.");
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            fetchEvent(); // Вызываем функцию при загрузке компонента
+            window.scrollTo(0, 0); // Скроллим страницу наверх
+        }, [id]);
+
+        // Отображение лоадера, ошибки или данных
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>{error}</p>;
+        if (!event) return <p>Event not found!</p>;
+
 
     }
-// const event = eventyDetails[id-1]; // Retrieve event details using the ID
-
     if (!event) {
-        return <g1>Event not found!</g1>;
+        return <h1>Event not found!</h1>;
     }
     const sectionStyle = {
-        backgroundImage: `url(${event.image || '/image4.png'})`,
+        backgroundImage: `url(${event.image || '/def-hack-image.webp'})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: '300px',
@@ -129,7 +127,6 @@ function EventDetails() {
         textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
     };
 // eslint-disable-next-line react-hooks/rules-of-hooks
-
 
 
     return (

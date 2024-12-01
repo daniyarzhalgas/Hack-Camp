@@ -1,7 +1,10 @@
 import React from 'react';
 import EventCard from "../Events/EventCard";
+import {useUser} from "../../contexts/UserContext";
 
 const Profile = () => {
+    const { user } = useUser();
+
     return (
         <div className="events">
             <div className="events-header">
@@ -45,7 +48,7 @@ const Profile = () => {
                         fontFamily: 'Inter',
                         fontWeight: '400',
                         wordWrap: 'break-word'
-                    }}>Last Name: Qwerty
+                    }}>Last Name: {user.lastName}
                     </div>
                     <div className="FirstNameQwerty" style={{
                         left: 631,
@@ -56,7 +59,7 @@ const Profile = () => {
                         fontFamily: 'Inter',
                         fontWeight: '400',
                         wordWrap: 'break-word'
-                    }}>First Name: Qwerty
+                    }}>First Name: {user.firstName}
                     </div>
                     <div className="CitySamarhand" style={{
                         width: 311,
@@ -115,7 +118,7 @@ const Profile = () => {
                         fontFamily: 'Inter',
                         fontWeight: '400',
                         wordWrap: 'break-word'
-                    }}>Email: qwerty@gmail.cum
+                    }}>Email: {user.email}
                     </div>
                 </div>
             </div>
