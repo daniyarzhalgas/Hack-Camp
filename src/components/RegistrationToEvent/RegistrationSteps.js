@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './RegistrationSteps.css'
 import {useNavigate} from "react-router-dom";
+import axios from 'axios';
 
 const RegistrationSteps = ({event}) => {
     const navigate = useNavigate();
@@ -11,11 +12,6 @@ const RegistrationSteps = ({event}) => {
         firstName: '',
         lastName: '',
         email: '',
-        country: '',
-        age: '',
-        gender: '',
-        organisationName: '',
-        participation: '',
         teamName: '',
         teamLeader: '',
         memberCount: '',
@@ -36,16 +32,25 @@ const RegistrationSteps = ({event}) => {
             setCurrentStep(currentStep + 1);
         }
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("submit")
-        console.log('Form Data:', formData);
 
-        alert(`successfully registered ${event.title} ${formData.firstName} ${formData.lastName}`)
-        window.location.reload();
-        // todo
-        // Perform actions like sending data to a server
+        try {
+            // Отправка данных на сервер
+            const response = await axios.post("http://localhost:8080/registrations", {
+                ...formData,
+                eventId: event.id, // Связь с конкретным событием
+            });
+
+            alert(`Successfully registered for ${event.title}!`);
+            console.log(response.data);
+            navigate("/success"); // Перенаправление на страницу успеха (опционально)
+        } catch (error) {
+            console.error("Error submitting registration:", error);
+            alert("Failed to register. Please try again.");
+        }
     };
+
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
