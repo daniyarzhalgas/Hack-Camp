@@ -15,7 +15,7 @@ const RegistrationSteps = ({event}) => {
         teamName: '',
         teamLeader: '',
         memberCount: '',
-        memberNames: ''
+        memberNames: '',
     });
 
     const handleChange = (e) => {
@@ -41,6 +41,7 @@ const RegistrationSteps = ({event}) => {
                 ...formData,
                 eventId: event.id, // Связь с конкретным событием
             });
+            console.log(event.id);
 
             alert(`Successfully registered for ${event.title}!`);
             console.log(response.data);

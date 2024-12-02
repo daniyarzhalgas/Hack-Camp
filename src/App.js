@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer';
 import Events from './components/Events/Events';
 import Features from './components/Features';
 import FAQs from './components/FAQs';
-import CalendarPage from './components/CalendarPage';
+import CalendarPage from './components/Calendar/CalendarPage';
 import './App.css'
 import EventDetails from "./components/Events/EventDetails";
 import LoginPage from "./components/Login/LoginPage";
