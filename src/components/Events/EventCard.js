@@ -2,11 +2,17 @@
 import React from 'react';
 import './EventCard.css';
 import {useNavigate} from "react-router-dom";
+import {useUser} from "../../contexts/UserContext";
 
 function EventCard({id, title, location, description, image}) {
-    const navigate = useNavigate(); // Hook for programmatic navigation
+    const navigate = useNavigate();
+    const {user} = useUser();// Hook for programmatic navigation
     const handleLearnMore = () => {
-        navigate(`/event/${id}`); // Navigate to the event details page
+        if (user) {
+            navigate(`/event/${id}`); // Navigate to the event details page
+        } else {
+            navigate('/login')
+        }
     };
     return (
         <div className="event-card">
@@ -14,7 +20,7 @@ function EventCard({id, title, location, description, image}) {
             <div className="event-content">
                 <h3>{title}</h3>
                 <p>{location}</p>
-                <p>{description}</p>
+                <p>{description.length > 100 ? `${description.slice(0, 100)}...` : description}</p>
                 <button onClick={handleLearnMore} className="learn-more-btn">learn more-></button>
             </div>
         </div>

@@ -33,6 +33,11 @@
 .learn-more-btn{
     border: 1px solid black;
     background: none;
+    margin-top: 10px;
     padding: 5px 12px;
     border-radius: 12px;
+}
+.learn-more-btn:hover{
+   background: #5179EF;
+    color: white;
 }

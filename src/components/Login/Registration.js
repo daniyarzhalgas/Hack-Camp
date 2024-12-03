@@ -21,13 +21,14 @@ const Registration = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, name: username, password }),
+                body: JSON.stringify({email, name: username, password}),
             });
 
             if (response.ok) {
-                navigate('/'); // Redirect to the home page
+                navigate('/login');
+                window.location.reload()// Redirect to the home page
             } else {
-                const { message } = await response.json();
+                const {message} = await response.json();
                 setError(message || 'Registration failed.');
             }
         } catch (err) {
@@ -67,7 +68,7 @@ const Registration = () => {
                         width: "25px",
                         height: "25px"
                     }}/>
-                    <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}
                            id="email-input" placeholder="Email" style={{
                         paddingLeft: "15px",
                         width: '100%',
@@ -96,7 +97,8 @@ const Registration = () => {
                         width: "25px",
                         height: "25px"
                     }}/>
-                    <input type="text" id="username-input" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}   style={{
+                    <input type="text" id="username-input" placeholder="Username" value={username}
+                           onChange={(e) => setUsername(e.target.value)} style={{
                         paddingLeft: "15px",
                         width: '100%',
                         height: '100%',
@@ -135,7 +137,7 @@ const Registration = () => {
                     />
                 </div>
             </div>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
+            {error && <div style={{color: 'red'}}>{error}</div>}
             <div className="Frame32" style={{
                 height: 67,
                 left: 796,

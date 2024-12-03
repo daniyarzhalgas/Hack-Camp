@@ -88,11 +88,12 @@ function EventDetails() {
     } else {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
-            // Функция для получения данных
+            if (!id) return; // Предотвращает ненужный вызов
+
             const fetchEvent = async () => {
                 try {
                     const response = await axios.get(`http://localhost:8080/hackathon/${id}`);
-                    setEvent(response.data); // Устанавливаем данные хакатона
+                    setEvent(response.data);
                 } catch (err) {
                     console.error("Failed to fetch event:", err);
                     setError("Failed to fetch event details.");
@@ -101,9 +102,9 @@ function EventDetails() {
                 }
             };
 
-            fetchEvent(); // Вызываем функцию при загрузке компонента
-            window.scrollTo(0, 0); // Скроллим страницу наверх
-        }, [id]);
+            fetchEvent();
+            window.scrollTo(0, 0);
+        }, [id])
 
         // Отображение лоадера, ошибки или данных
         if (loading) return <p>Loading...</p>;

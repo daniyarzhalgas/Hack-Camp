@@ -71,6 +71,37 @@ function Events() {
         fetchHackathons();
     }, []);
 
+    const [filteredHackathons, setFilteredHackathons] = useState(mockHackathons);
+    const [activeFilter, setActiveFilter] = useState('All'); // Default filter is 'All'
+
+    // Function to handle filter button click
+    const handleFilterClick = (filterType) => {
+        let filtered = [];
+
+        // Filter hackathons based on the selected filter type
+        switch (filterType) {
+            case 'All':
+                filtered = mockHackathons; // Show all hackathons
+                break;
+            case 'Ongoing':
+                filtered = mockHackathons.slice(0, 2); // First 2 events
+                break;
+            case 'Upcoming':
+                filtered = mockHackathons.slice(2, 5); // From index 2 to 5
+                break;
+            case 'Finished':
+                filtered = mockHackathons.slice(5); // From index 5 to the end (the last event)
+                break;
+            default:
+                filtered = mockHackathons;
+                break;
+        }
+
+        setFilteredHackathons(filtered); // Update filtered hackathons
+        setActiveFilter(filterType);
+    };
+
+
     if (loading) {
         return <div className="events"><p>Loading hackathons...</p></div>;
     }
@@ -87,18 +118,33 @@ function Events() {
             </div>
             <div className="events-list">
                 <div className="event-filters">
-                    <button>All</button>
-                    <button>Ongoing</button>
-                    <button>Upcoming</button>
-                    <button>Finished</button>
+                    <button onClick={() => handleFilterClick('All')}
+                            style={{background: activeFilter === 'All' ? '#5179EF' : 'transparent',
+                                color: activeFilter === 'All' ? "#fff" : "#000"}}>All
+                    </button>
+                    <button onClick={() => handleFilterClick('Ongoing')}
+                            style={{background: activeFilter === 'Ongoing' ? '#5179EF' : 'transparent',
+                                color: activeFilter === 'Ongoing' ? "#fff" : "#000"}}>Ongoing
+                    </button>
+                    <button onClick={() => handleFilterClick('Upcoming')}
+                            style={{background: activeFilter === 'Upcoming' ? '#5179EF' : 'transparent',
+                                color: activeFilter === 'Upcoming' ? "#fff" : "#000"}}>Upcoming
+                    </button>
+                    <button onClick={() => handleFilterClick('Finished')}
+                            style={{
+                                background: activeFilter === 'Finished' ? '#5179EF' : 'transparent',
+                                color: activeFilter === 'Finished' ? "#fff" : "#000"
+                            }}>Finished
+                    </button>
                 </div>
                 <div className="event-grid">
-                    {mockHackathons.map((hackathon, index) => (
+                    {filteredHackathons.map((hackathon, index) => (
                         <EventCard key={index} {...hackathon} />
                     ))}
 
-                    {hackathons.map((hackathon) => ( // hackathons from back
+                    {hackathons.map((hackathon, index) => ( // hackathons from back
                         <EventCard
+                            key={index}
                             id={i++}
                             {...hackathon}
                             image={hackathon.image || '/def-hack-image.webp'} // Укажите путь к дефолтному изображению
