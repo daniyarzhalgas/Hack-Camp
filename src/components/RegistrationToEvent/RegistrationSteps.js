@@ -45,7 +45,7 @@ const RegistrationSteps = ({event}) => {
 
             alert(`Successfully registered for ${event.title}!`);
             console.log(response.data);
-            navigate("/success"); // Перенаправление на страницу успеха (опционально)
+            navigate("/calendar"); // Перенаправление на страницу успеха (опционально)
         } catch (error) {
             console.error("Error submitting registration:", error);
             alert("Failed to register. Please try again.");

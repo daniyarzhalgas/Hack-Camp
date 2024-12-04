@@ -21,7 +21,7 @@ function EventDetails() {
             duration: '2 days (weekend)',
             description: 'TechStep Almaty is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
             prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
-            date: '01.11.2024'
+            date: '2024-12-25'
         },
         {
             id: 2,
@@ -31,7 +31,7 @@ function EventDetails() {
             duration: '2 days (weekend)',
             description: 'Astana AI & ML Hack is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
             prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
-            date: '01.11.2024'
+            date: '2024-11-15'
         },
         {
             id: 3,
@@ -41,7 +41,7 @@ function EventDetails() {
             duration: '2 days (weekend)',
             description: 'KazHack is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
             prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
-            date: '01.11.2024'
+            date: '2025-01-11'
         },
         {
             id: 4,
@@ -51,7 +51,7 @@ function EventDetails() {
             duration: '2 days (weekend)',
             description: 'EcoTechHack is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
             prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
-            date: '01.11.2024'
+            date: '2025-05-11'
         },
         {
             id: 5,
@@ -61,7 +61,7 @@ function EventDetails() {
             duration: '2 days (weekend)',
             description: 'FinTech Almaty is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
             prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
-            date: '01.11.2024'
+            date: '2025-04-10'
         },
         {
             id: 6,
@@ -71,51 +71,44 @@ function EventDetails() {
             duration: '2 days (weekend)',
             description: 'Hack4Good Shymkent is a hackathon that unites students and professionals to solve real problems through technology.\n      The participants will work on projects in the following areas:\n\n      Mobile apps: Tools for productivity, entertainment, or community.,\n\n      Web solutions: Platforms for e-commerce, data visualization or service management.,\n\n      Automation: Optimization of work processes.,\n\n      Open innovation: Any significant technological ideas.',
             prizes: '1st place: $3000 + mentoring support, 2nd place: $1500 + educational resources, 3rd place: $1000 + gifts from partners.',
-            date: '01.11.2024'
+            date: '2025-02-20'
         },
         // Add more hackathons as needed
     ];
 
+    useEffect(() => {
+        if (!id) return; // Если ID нет, выходим
 
-    if (id < 6) {
-        // setEvent(eventDetails[id - 1])
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect(() => {
-            if (id && eventDetails) {
-                setEvent(eventDetails[id - 1]);
-            }
-        }, [id, eventDetails]); // Dependencies to re-run effect if these change
-    } else {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect(() => {
-            if (!id) return; // Предотвращает ненужный вызов
-
-            const fetchEvent = async () => {
-                try {
+        const fetchEvent = async () => {
+            try {
+                if (id < 6 && eventDetails) {
+                    return
+                } else {
+                    // Запрос к серверу для событий с ID >= 6
                     const response = await axios.get(`http://localhost:8080/hackathon/${id}`);
                     setEvent(response.data);
-                } catch (err) {
-                    console.error("Failed to fetch event:", err);
-                    setError("Failed to fetch event details.");
-                } finally {
-                    setLoading(false);
                 }
-            };
+            } catch (err) {
+                console.error("Failed to fetch event:", err);
+                setError("Failed to fetch event details.");
+            } finally {
+                setLoading(false); // Убираем состояние загрузки
+            }
+        };
+        fetchEvent();
+    }, [id, eventDetails]); // Хук срабатывает при изменении ID или eventDetails
 
-            fetchEvent();
-            window.scrollTo(0, 0);
-        }, [id])
-
-        // Отображение лоадера, ошибки или данных
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>{error}</p>;
-        if (!event) return <p>Event not found!</p>;
-
-
+    if (!event){
+        setEvent(eventDetails[id-1])
     }
+    // Отображение данных
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
     if (!event) {
-        return <h1>Event not found!</h1>;
+
+        return <p>Event not found!</p>;
     }
+
     const sectionStyle = {
         backgroundImage: `url(${event.image || '/def-hack-image.webp'})`,
         backgroundSize: 'cover',
@@ -127,8 +120,6 @@ function EventDetails() {
         color: 'white',
         textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
     };
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
 
     return (
         <div>
@@ -142,7 +133,7 @@ function EventDetails() {
                 </div>
 
                 <EventPage id={id} event={event}/>
-                {/* Event Info */}
+                {/* Event Info*/}
             </div>
         </div>
 

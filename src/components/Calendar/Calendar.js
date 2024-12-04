@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "./Calendar.css";
+import {useNavigate} from "react-router-dom";
 
-const Calendar = ({ events }) => {
+const Calendar = ({events}) => {
     const today = new Date();
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [selectedEvents, setSelectedEvents] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(events[0] || null); // Default to the first event
+    const navigate = useNavigate();
+
+    const handleLearnMore = (id) => {
+        console.log(id)
+        navigate(`/event/${id}`); // Navigate to the event details page
+
+    };
 
     const getDaysInMonth = (year, month) => {
         return new Date(year, month + 1, 0).getDate();
@@ -17,6 +25,16 @@ const Calendar = ({ events }) => {
             1
         );
         setCurrentDate(newDate);
+        /// setSelectedEvent(null); // Reset selected event when month changes
+    };
+
+    const handleDayClick = (day) => {
+        const event = events.find(
+            (event) =>
+                new Date(event.registrationDeadline).toDateString() ===
+                new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString()
+        );
+        setSelectedEvent(event || null);
     };
 
     const generateCalendar = () => {
@@ -35,7 +53,7 @@ const Calendar = ({ events }) => {
                 today.getFullYear() === year &&
                 today.getMonth() === month &&
                 today.getDate() === day;
-            const eventOnDay = events.filter(
+            const eventOnDay = events.some(
                 (event) =>
                     new Date(event.registrationDeadline).toDateString() ===
                     new Date(year, month, day).toDateString()
@@ -45,9 +63,9 @@ const Calendar = ({ events }) => {
                 <div
                     key={day}
                     className={`calendar-day ${isToday ? "today" : ""} ${
-                        eventOnDay.length ? "event-day" : ""
+                        eventOnDay ? "event-day" : ""
                     }`}
-                    onClick={() => setSelectedEvents(eventOnDay)}
+                    onClick={() => handleDayClick(day)}
                 >
                     {day}
                 </div>
@@ -56,40 +74,54 @@ const Calendar = ({ events }) => {
         return calendar;
     };
 
+        console.log("selected event");
+        console.log(selectedEvent);
     return (
-        <div className="calendar-container">
-            <div className="calendar-header">
-                <button onClick={() => changeMonth(-1)}>◄</button>
-                <span>
-          {currentDate.toLocaleString("default", {
-              month: "long",
-              year: "numeric",
-          })}
-        </span>
-                <button onClick={() => changeMonth(1)}>►</button>
+        <div className="styled-calendar">
+            <div className="calendar-section">
+                <div className="calendar-header">
+                    <button className="change-month-btn" onClick={() => changeMonth(-1)}>◄</button>
+                    <span>
+            {currentDate.toLocaleString("default", {
+                month: "long",
+                year: "numeric",
+            })}
+          </span>
+                    <button className="change-month-btn" onClick={() => changeMonth(1)}>►</button>
+                </div>
+                <div className="calendar-grid">
+                    {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                        <div key={day} className="calendar-day-name">
+                            {day}
+                        </div>
+                    ))}
+                    {generateCalendar()}
+                </div>
             </div>
-            <div className="calendar-grid">
-                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
-                    <div key={day} className="calendar-day-name">
-                        {day}
-                    </div>
-                ))}
-                {generateCalendar()}
-            </div>
-            <div className="event-details">
-                {selectedEvents.length > 0 ? (
-                    <div>
-                        <h3>Events on {new Date(selectedEvents[0].date).toDateString()}:</h3>
-                        <ul>
-                            {selectedEvents.map((event, index) => (
-                                <li key={index}>
-                                    <strong>{event.title}</strong>: {event.description}
-                                </li>
-                            ))}
-                        </ul>
+            <div className="event-section">
+                {selectedEvent ? (
+                    <div className="event-card-calendar">
+                        <img src={selectedEvent.image} alt="image" style={{
+                            width: "100%"
+                        }}/>
+                        <h2>{selectedEvent.title}</h2>
+                        <p>
+                            <strong>Location:</strong> {selectedEvent.location}
+                        </p>
+                        <p>
+                            <strong>Date:</strong>{" "}
+                            {new Date(selectedEvent.registrationDeadline).toDateString()}
+                        </p>
+                        <p>
+                            <strong>Description:</strong> {selectedEvent.description}
+                        </p>
+                        <button className="learn-more-btn-calendar" onClick={event => {
+                            handleLearnMore(selectedEvent.id)
+                        }}>Learn More →
+                        </button>
                     </div>
                 ) : (
-                    <p>Select a date to view events.</p>
+                    <p className="no-event">You don't participate in hackathons.</p>
                 )}
             </div>
         </div>

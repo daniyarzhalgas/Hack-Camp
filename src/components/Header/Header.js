@@ -23,7 +23,7 @@ function Header({isAuthenticated}) {
         navigate("/results"); // Navigate to the Profile page
     };
     const logOutHandle = () => {
-        navigate("/")
+        navigate("/events")
         setUser(null)
     }
 

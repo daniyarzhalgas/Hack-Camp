@@ -31,7 +31,7 @@ const Profile = () => {
                     }}/>
                     <img className="TheoTransparent"
                          style={{width: 157, height: 157, left: 75, top: 65, position: 'absolute'}}
-                         src="https://via.placeholder.com/157x157"/>
+                         src="/user_icon.png"/>
                     <div className="NumberOfParticipants2" style={{
                         width: 311,
                         height: 29,
@@ -127,7 +127,7 @@ const Profile = () => {
                     </div>
                     <img className="Image12"
                          style={{width: 600, height: 241, left: 0, top: 0, position: 'absolute', borderRadius: 30}}
-                         src="https://via.placeholder.com/600x241"/>
+                         src="/def-hack-image.webp"/>
                 </div>
                 <div style={{width: 600, height: 700, left: 741, top: 428, position: 'absolute'}}>
                     <div className="Rectangle1156" style={{
@@ -142,7 +142,7 @@ const Profile = () => {
                     }}/>
                     <img className="Image13"
                          style={{width: 600, height: 241, left: 0, top: 0, position: 'absolute', borderRadius: 30}}
-                         src="https://via.placeholder.com/600x241"/>
+                         src="/def-hack-image.webp"/>
                 </div>
                 <div className="Line6" style={{
                     width: 600,

@@ -11,7 +11,7 @@ function CalendarPage() {
     const [error, setError] = useState(null);
     const {user} = useUser();
     const navigate = useNavigate();
-    if (!user)  navigate("/login")
+    if (!user) navigate("/login")
     useEffect(() => {
         // Function to fetch data
         const fetchEvent = async () => {
@@ -36,7 +36,7 @@ function CalendarPage() {
     if (error) return <p>{error}</p>;
     if (!registrationEvents) return <p>Event not found!</p>;
 
-    const filteredRegistrations = registrationEvents.filter(reg => reg.firstName === "da");
+    const filteredRegistrations = registrationEvents.filter(reg => reg.email === user?.email);
 
     console.log(registrationEvents)
     console.log("filtered dict")
@@ -50,9 +50,8 @@ function CalendarPage() {
 
             <div style={{
                 display: "flex",
-                flexDirection: "column",
                 justifyContent: "center",
-                padding: "50px 10px"
+                textAlign: "center"
             }}>
                 <EventList registrationEvents={filteredRegistrations}/>
             </div>
